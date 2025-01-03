@@ -43,6 +43,7 @@ dependencies:
   firebase_storage: ^12.2.0
   get_it: ^7.7.0
   dash_chat_2: ^0.0.21
+  cloud_firestore: ^5.6.0
 
 dev_dependencies:
   flutter_test:

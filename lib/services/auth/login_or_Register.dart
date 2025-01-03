@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_chat_application/pages/auth/login_page.dart';
-import 'package:flutter_chat_application/pages/auth/register_page.dart';
+import 'package:flutter_chat_application/services/auth/register_page.dart';
+
+import 'login_page.dart';
+
 
 class LoginOrRegister extends StatefulWidget {
   const LoginOrRegister({super.key});

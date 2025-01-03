@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../widgets/my_button.dart';
 import '../../widgets/my_textfield.dart';
+import 'auth_service.dart';
 
 class RegisterPage extends StatelessWidget {
   final void Function()? onTap;
@@ -11,7 +12,21 @@ class RegisterPage extends StatelessWidget {
   final TextEditingController _confirmPasswordController = TextEditingController();
    RegisterPage({super.key, required this.onTap});
 
-  void register(){}
+  void register(BuildContext context){
+     final _auth = AuthService();
+
+
+     if(_passwordController.text == _confirmPasswordController.text){
+       try{
+         _auth.signUpWithEmailPassword(_emailController.text, _passwordController.text);
+       }
+       catch (e){
+         showDialog(context: context, builder: (context)=> AlertDialog(
+           title: Text(e.toString()),
+         ));
+       }
+     }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +49,7 @@ class RegisterPage extends StatelessWidget {
             MyTextfield(hintText: 'Confirm Password', obscureText: true, controller: _confirmPasswordController,),
             SizedBox(height: 25),
             MyButton(text: 'Register',
-              onTap: register,),
+              onTap: ()=> register(context),),
             SizedBox(height: 25),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

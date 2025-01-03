@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_application/pages/auth/auth_service.dart';
 import 'package:flutter_chat_application/widgets/my_button.dart';
 import 'package:flutter_chat_application/widgets/my_textfield.dart';
+
+import 'auth_service.dart';
 
 class Loginpage extends StatelessWidget {
   final void Function()? onTap;
@@ -10,8 +11,18 @@ class Loginpage extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
    Loginpage({super.key, required this.onTap});
 
-   void login(){
-     // final authService = AuthService();
+   void login(BuildContext context) async{
+     final authService = AuthService();
+
+     try{
+       await authService.signInWithEmailPassword(_emailController.text, _passwordController.text);
+     }
+
+     catch (e){
+       showDialog(context: context, builder: (context)=> AlertDialog(
+         title: Text(e.toString()),
+       ));
+     }
 
    }
 
@@ -34,7 +45,7 @@ class Loginpage extends StatelessWidget {
            MyTextfield(hintText: 'Password', obscureText: true, controller: _passwordController,),
            SizedBox(height: 25),
            MyButton(text: 'Login',
-           onTap: login,),
+           onTap: ()=> login(context),),
            SizedBox(height: 25),
            Row(
              mainAxisAlignment: MainAxisAlignment.center,
